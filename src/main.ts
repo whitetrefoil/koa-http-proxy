@@ -1,13 +1,20 @@
 // tslint:disable:no-implicit-dependencies
 import { defer, Deferred } from '@whitetrefoil/deferred'
-import { IncomingMessage, ServerResponse } from 'http'
+import { IncomingHttpHeaders, IncomingMessage, ServerResponse } from 'http'
 import Server, { ServerOptions } from 'http-proxy'
 import { Middleware } from 'koa'
 
 
+interface IProxyResponse {
+  code: number
+  headers: IncomingHttpHeaders
+  body: any
+}
+
+
 let proxyServer: Server
 
-const requestMap: WeakMap<IncomingMessage, Deferred<IncomingMessage>> = new WeakMap()
+const requestMap: WeakMap<IncomingMessage, Deferred<IProxyResponse>> = new WeakMap()
 
 
 function onProxyRes(proxyRes: IncomingMessage, req: IncomingMessage, res: ServerResponse) {
@@ -16,7 +23,15 @@ function onProxyRes(proxyRes: IncomingMessage, req: IncomingMessage, res: Server
     return
   }
 
-  deferred.resolve(proxyRes)
+  let body = ''
+  proxyRes.on('data', (chunk) => {
+    body += chunk
+  })
+  proxyRes.on('end', () => {
+    const code    = proxyRes.statusCode || 404
+    const headers = proxyRes.headers
+    deferred.resolve({ code, headers, body })
+  })
 }
 
 function onError(error: Error, req: IncomingMessage, res: ServerResponse) {
@@ -37,28 +52,32 @@ export function proxyMiddlewareFactory(prefixes: string[], options: ServerOption
   }
 
   return async(ctx, next) => {
-    const url = ctx.url
+    const url   = ctx.url
+    let isMatch = false
 
     for (const prefix of prefixes) {
-      if (url.indexOf(prefix) !== 0) { continue }
-      const deferred = defer<IncomingMessage>()
-      requestMap.set(ctx.req, deferred)
-      proxyServer.web(ctx.req, ctx.res)
-      await deferred.promise
-        .then((proxyRes) => {
-          let body = ''
-          proxyRes.on('data', (chunk) => {
-            body += chunk
-          })
-          proxyRes.on('end', async() => {
-            ctx.status = proxyRes.statusCode || 404
-            ctx.set(proxyRes.headers as any)
-            ctx.body = body
-            await next()
-          })
-        })
-      break
+      if (url.indexOf(prefix) === 0) {
+        isMatch = true
+        break
+      }
     }
+
+    if (!isMatch) {
+      await next()
+      return
+    }
+
+    const deferred = defer<IProxyResponse>()
+    requestMap.set(ctx.req, deferred)
+    proxyServer.web(ctx.req, ctx.res)
+
+    return deferred.promise
+      .then((proxyRes) => {
+        ctx.status = proxyRes.code
+        ctx.set(proxyRes.headers as any)
+        ctx.body = proxyRes.body
+        return next()
+      }, next)
   }
 }
 
