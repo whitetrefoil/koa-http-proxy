@@ -61,3 +61,5 @@ export function proxyMiddlewareFactory(prefixes: string[], options: ServerOption
     }
   }
 }
+
+export default proxyMiddlewareFactory
