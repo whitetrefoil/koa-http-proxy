@@ -1,0 +1,15 @@
+{
+  "extends"        : "../tsconfig.json",
+  "compilerOptions": {
+    "declaration"   : false,
+    "declarationDir": null,
+    "module"        : "commonjs",
+    "outDir"        : "../.testing",
+    "target"        : "es5"
+  },
+  "include": [
+    "../declarations/*.d.ts",
+    "../src/**/*.ts",
+    "**/*.ts"
+  ]
+}
