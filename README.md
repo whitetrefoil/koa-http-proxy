@@ -27,6 +27,10 @@ The `options` here is the one of "[node-http-proxy](https://github.com/nodejitsu
 Changelog
 ---------
 
+### v0.1.2
+
+* Use dedicated server for each factory call.
+
 ### v0.1.1
 
 * Fix a bug about response body.
