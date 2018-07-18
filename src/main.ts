@@ -12,8 +12,6 @@ interface IProxyResponse {
 }
 
 
-let proxyServer: Server
-
 const requestMap: WeakMap<IncomingMessage, Deferred<IProxyResponse>> = new WeakMap()
 
 
@@ -45,11 +43,9 @@ function onError(error: Error, req: IncomingMessage, res: ServerResponse) {
 
 
 export function proxyMiddlewareFactory(prefixes: string[], options: ServerOptions): Middleware {
-  if (proxyServer == null) {
-    proxyServer = new Server(options)
-    proxyServer.on('proxyRes', onProxyRes)
-    proxyServer.on('error', onError)
-  }
+  const proxyServer = new Server(options)
+  proxyServer.on('proxyRes', onProxyRes)
+  proxyServer.on('error', onError)
 
   return async(ctx, next) => {
     const url   = ctx.url
