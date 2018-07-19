@@ -13,6 +13,12 @@ is designed for connect / express. It will not call `next()` when the proxy resp
 This will cause problem if simply use "[koa-connect](https://github.com/vkurchatkin/koa-connect)"
 to adapt it.
 
+Warning
+-------
+
+Do not use any middleware like "bodyparser" before the proxy, otherwise requests with body (e.g. a POST) may hang.
+See [the issue in node-http-proxy](https://github.com/nodejitsu/node-http-proxy/issues/180) for more details.
+
 Usage
 -----
 
@@ -26,6 +32,10 @@ The `options` here is the one of "[node-http-proxy](https://github.com/nodejitsu
 
 Changelog
 ---------
+
+### v0.1.3
+
+* Add some logs to help debugging.
 
 ### v0.1.2
 
