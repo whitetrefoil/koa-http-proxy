@@ -1,5 +1,6 @@
 // tslint:disable:no-implicit-dependencies
 import { defer, Deferred } from '@whitetrefoil/deferred'
+import log from 'fancy-log'
 import { IncomingHttpHeaders, IncomingMessage, ServerResponse } from 'http'
 import Server, { ServerOptions } from 'http-proxy'
 import { Middleware } from 'koa'
@@ -34,15 +35,17 @@ function onProxyRes(proxyRes: IncomingMessage, req: IncomingMessage, res: Server
 
 function onError(error: Error, req: IncomingMessage, res: ServerResponse) {
   const deferred = requestMap.get(req)
-  if (deferred == null) {
-    return
-  }
+  if (deferred == null) { return }
 
   deferred.reject(error)
 }
 
 
 export function proxyMiddlewareFactory(prefixes: string[], options: ServerOptions): Middleware {
+
+  log.info('Initializing koa-http-proxy for these url:\n', prefixes)
+  log.info('Initializing node-http-proxy for option:\n', options)
+
   const proxyServer = new Server(options)
   proxyServer.on('proxyRes', onProxyRes)
   proxyServer.on('error', onError)
