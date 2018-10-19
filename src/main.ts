@@ -70,13 +70,17 @@ export function proxyMiddlewareFactory(prefixes: string[], options: ServerOption
     requestMap.set(ctx.req, deferred)
     proxyServer.web(ctx.req, ctx.res)
 
-    return deferred.promise
-      .then((proxyRes) => {
-        ctx.status = proxyRes.code
-        ctx.set(proxyRes.headers as any)
-        ctx.body = proxyRes.body
-        return next()
-      }, next)
+    try {
+      const proxyRes = await deferred.promise
+
+      ctx.status = proxyRes.code
+      ctx.set(proxyRes.headers as any)
+      ctx.body = proxyRes.body
+      return next()
+    } catch (e) {
+      log.error(e.message)
+      throw e
+    }
   }
 }
 
