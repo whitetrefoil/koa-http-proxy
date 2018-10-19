@@ -33,6 +33,10 @@ The `options` here is the one of "[node-http-proxy](https://github.com/nodejitsu
 Changelog
 ---------
 
+### v0.1.4
+
+* Print error message when proxy request failed.
+
 ### v0.1.3
 
 * Add some logs to help debugging.
