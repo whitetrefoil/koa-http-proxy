@@ -33,6 +33,10 @@ The `options` here is the one of "[node-http-proxy](https://github.com/nodejitsu
 Changelog
 ---------
 
+### v0.1.5
+
+* Fix "@whitetrefoil/deferred" used as dependency but required as devDependency.
+
 ### v0.1.4
 
 * Print error message when proxy request failed.
