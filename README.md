@@ -33,6 +33,11 @@ The `options` here is the one of "[node-http-proxy](https://github.com/nodejitsu
 Changelog
 ---------
 
+### v0.3.0
+
+* Prevent http-proxy from response directly, now other Koa middleware can interactive the response.
+* Set `ctx.body` as a `Buffer`.
+
 ### v0.2.0
 
 * Upgrade TypeScript to stable.
