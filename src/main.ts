@@ -27,7 +27,7 @@ function onProxyRes(proxyRes: IncomingMessage, req: IncomingMessage, res: Server
     body += chunk;
   });
   proxyRes.on('end', () => {
-    const code    = proxyRes.statusCode || 404;
+    const code = proxyRes.statusCode ?? 404;
     const headers = proxyRes.headers;
     deferred.resolve({ code, headers, body });
   });
@@ -51,7 +51,7 @@ export function proxyMiddlewareFactory(prefixes: string[], options: ServerOption
   proxyServer.on('error', onError);
 
   return async(ctx, next) => {
-    const url   = ctx.url;
+    const url = ctx.url;
     let isMatch = false;
 
     for (const prefix of prefixes) {
