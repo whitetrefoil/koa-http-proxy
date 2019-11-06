@@ -1,35 +1,38 @@
-// tslint:disable:no-implicit-dependencies
 import { defer, Deferred }                                      from '@whitetrefoil/deferred';
 import log                                                      from 'fancy-log';
 import { IncomingHttpHeaders, IncomingMessage, ServerResponse } from 'http';
-import Server, { ServerOptions }                                from 'http-proxy';
+import HttpProxyServer, { ServerOptions }                       from 'http-proxy';
+// tslint:disable-next-line:no-implicit-dependencies
 import { Middleware }                                           from 'koa';
 
 
 interface IProxyResponse {
   code: number;
   headers: IncomingHttpHeaders;
-  body: any;
+  body: Buffer;
 }
 
 
 const requestMap: WeakMap<IncomingMessage, Deferred<IProxyResponse>> = new WeakMap();
 
 
-function onProxyRes(proxyRes: IncomingMessage, req: IncomingMessage, res: ServerResponse) {
+async function onProxyRes(proxyRes: IncomingMessage, req: IncomingMessage, res: ServerResponse) {
   const deferred = requestMap.get(req);
   if (deferred == null) {
     return;
   }
 
-  let body = '';
+  const bodyBuf: Buffer[] = [];
   proxyRes.on('data', chunk => {
-    body += chunk;
+    bodyBuf.push(chunk);
   });
-  proxyRes.on('end', () => {
+  proxyRes.on('end', async() => {
     const code = proxyRes.statusCode ?? 404;
-    const headers = proxyRes.headers;
-    deferred.resolve({ code, headers, body });
+    const headers = {
+      ...proxyRes.headers,
+      'x-koa-http-proxy': '1',
+    };
+    deferred.resolve({ code, headers, body: Buffer.concat(bodyBuf) });
   });
 }
 
@@ -46,7 +49,7 @@ export function proxyMiddlewareFactory(prefixes: string[], options: ServerOption
   log.info('Initializing koa-http-proxy for these url:\n', prefixes);
   log.info('Initializing node-http-proxy for option:\n', options);
 
-  const proxyServer = new Server(options);
+  const proxyServer = HttpProxyServer.createProxyServer(options);
   proxyServer.on('proxyRes', onProxyRes);
   proxyServer.on('error', onError);
 
@@ -67,8 +70,9 @@ export function proxyMiddlewareFactory(prefixes: string[], options: ServerOption
     }
 
     const deferred = defer<IProxyResponse>();
+    const res = new ServerResponse(ctx.req);
     requestMap.set(ctx.req, deferred);
-    proxyServer.web(ctx.req, ctx.res);
+    proxyServer.web(ctx.req, res);
 
     try {
       const proxyRes = await deferred.promise;

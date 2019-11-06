@@ -129,7 +129,7 @@
     "file-header"                     : false,
     "import-spacing"                  : false,
     "interface-name"                  : [false, "always-prefix"],
-    "interface-over-type-literal"     : true,
+    "interface-over-type-literal"     : false,
     "jsdoc-format"                    : true,
     "newline-before-return"           : false,
     "new-parens"                      : true,
