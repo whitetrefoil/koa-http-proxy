@@ -33,6 +33,10 @@ The `options` here is the one of "[node-http-proxy](https://github.com/nodejitsu
 Changelog
 ---------
 
+### v0.2.0
+
+* Upgrade TypeScript to stable.
+
 ### v0.2.0-beta.1
 
 * Upgrade dependencies.
