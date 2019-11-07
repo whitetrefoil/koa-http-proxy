@@ -33,6 +33,10 @@ The `options` here is the one of "[node-http-proxy](https://github.com/nodejitsu
 Changelog
 ---------
 
+### v0.4.0
+
+* Fix HPE_UNEXPECTED_CONTENT_LENGTH (causes changes in response headers).
+
 ### v0.3.0
 
 * Prevent http-proxy from response directly, now other Koa middleware can interactive the response.
