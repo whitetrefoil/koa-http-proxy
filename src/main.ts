@@ -78,7 +78,23 @@ export function proxyMiddlewareFactory(prefixes: string[], options: ServerOption
       const proxyRes = await deferred.promise;
 
       ctx.status = proxyRes.code;
-      ctx.set(proxyRes.headers as any);
+
+      // About the HPE_UNEXPECTED_CONTENT_LENGTH, see:
+      // https://github.com/request/request/issues/2091#issuecomment-197217024
+      // https://github.com/request/request/issues/2091#issuecomment-355013503
+      const headers = proxyRes.headers;
+      if (proxyRes.headers['transfer-encoding'] === 'chunked') {
+        delete headers['transfer-encoding'];
+      } else if (proxyRes.headers['transfer-encoding'] == null
+                 && proxyRes.headers['content-encoding'] === 'chunked'
+      ) {
+        delete headers['content-encoding'];
+      }
+      Object.keys(headers).forEach(key => {
+        const val = headers[key];
+        if (val == null) { return; }
+        ctx.set(key, val);
+      });
       ctx.body = proxyRes.body;
       return next();
     } catch (e) {
