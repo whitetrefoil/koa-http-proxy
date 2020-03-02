@@ -7,7 +7,7 @@
     "experimentalDecorators"      : true,
     "inlineSourceMap"             : false,
     "inlineSources"               : true,
-    "lib"                         : ["es2017", "dom"],
+    "lib"                         : ["es2018", "dom"],
     "module"                      : "esnext",
     "moduleResolution"            : "node",
     "noImplicitAny"               : true,
@@ -16,7 +16,7 @@
     "skipLibCheck"                : true,
     "sourceMap"                   : true,
     "strict"                      : true,
-    "target"                      : "es2017"
+    "target"                      : "es2018"
   },
   "include"        : [
     "declarations/*.d.ts",
