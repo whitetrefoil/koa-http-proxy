@@ -33,6 +33,11 @@ The `options` here is the one of "[node-http-proxy](https://github.com/nodejitsu
 Changelog
 ---------
 
+### v0.5.0
+
+* Add a "native" version which won't fix HPE_UNEXPECTED_CONTENT_LENGTH (because the fix causes other problems).
+* Upgrade esm version build to ES2018.
+
 ### v0.4.0
 
 * Fix HPE_UNEXPECTED_CONTENT_LENGTH (causes changes in response headers).
