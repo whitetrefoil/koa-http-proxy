@@ -1,8 +1,6 @@
 {
   "extends"        : "./tsconfig.json",
   "compilerOptions": {
-    "declaration"   : false,
-    "declarationDir": null,
     "module"        : "commonjs",
     "outDir"        : "lib/common",
     "target"        : "es5"
