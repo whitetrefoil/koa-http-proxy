@@ -28,7 +28,7 @@
   "license": "MIT",
   "files": [
     "lib/**/*.js",
-    "lib/types/**/*.d.ts",
+    "lib/**/*.d.ts",
     "README.md"
   ],
   "directories": {
