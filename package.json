@@ -1,6 +1,6 @@
 {
   "name": "@whitetrefoil/koa-http-proxy",
-  "version": "0.5.1",
+  "version": "1.0.0",
   "description": "Koa version of http-proxy-middleware.",
   "main": "lib/main.js",
   "module": "lib/main.module.js",

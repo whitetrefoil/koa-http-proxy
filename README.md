@@ -33,6 +33,10 @@ The `options` here is the one of "[node-http-proxy](https://github.com/nodejitsu
 Changelog
 ---------
 
+### v1.0.0
+
+* Go back to `koa-connect` instead...
+
 ### v0.5.1
 
 * Fix missing `.d.ts` files.
