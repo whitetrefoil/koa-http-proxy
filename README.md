@@ -33,6 +33,10 @@ The `options` here is the one of "[node-http-proxy](https://github.com/nodejitsu
 Changelog
 ---------
 
+### v0.5.1
+
+* Fix missing `.d.ts` files.
+
 ### v0.5.0
 
 * Add a "native" version which won't fix HPE_UNEXPECTED_CONTENT_LENGTH (because the fix causes other problems).
