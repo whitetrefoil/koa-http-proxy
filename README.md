@@ -23,15 +23,20 @@ Usage
 -----
 
 ```typescript
-import proxyMiddlewareFactory from '@whitetrefoil/koa-http-proxy'
+import { createProxyMiddleware } from '@whitetrefoil/koa-http-proxy'
 
-app.use(proxyMiddlewareFactory(['/api'], { ...options }))
+app.use(createProxyMiddleware(['/api'], { ...options }))
 ```
 
 The `options` here is the one of "[node-http-proxy](https://github.com/nodejitsu/node-http-proxy#options)".
 
 Changelog
 ---------
+
+### v2.0.0
+
+* Upgrade infrastructure to support ESM.
+* Remove default export.
 
 ### v1.0.0
 
