@@ -14,6 +14,7 @@
     <inspection_tool class="EmptyStatementBodyJS" enabled="false" level="WARNING" enabled_by_default="false">
       <option name="m_reportEmptyBlocks" value="false" />
     </inspection_tool>
+    <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ExceptionCaughtLocallyJS" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="FallThroughInSwitchStatementJS" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="IncompatibleMaskJS" enabled="false" level="WARNING" enabled_by_default="false" />
@@ -26,7 +27,6 @@
     <inspection_tool class="JSCommentMatchesSignature" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JSComparisonWithNaN" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JSConsecutiveCommasInArrayLiteral" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="JSConstructorReturnsPrimitive" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JSDeprecatedSymbols" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
     <inspection_tool class="JSDuplicatedDeclaration" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JSFileReferences" enabled="false" level="WARNING" enabled_by_default="false" />
@@ -69,9 +69,6 @@
     <inspection_tool class="NodeRequireContents" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
     <inspection_tool class="OctalIntegerJS" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="PointlessArithmeticExpressionJS" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="PointlessBitwiseExpressionJS" enabled="false" level="WARNING" enabled_by_default="false">
-      <option name="m_ignoreExpressionsContainingConstants" value="false" />
-    </inspection_tool>
     <inspection_tool class="PointlessBooleanExpressionJS" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="ReservedWordUsedAsNameJS" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="ReturnFromFinallyBlockJS" enabled="false" level="WARNING" enabled_by_default="false" />
@@ -81,7 +78,7 @@
     <inspection_tool class="ThrowFromFinallyBlockJS" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="TrivialConditionalJS" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="TrivialIfJS" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="TsLint" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="TsLint" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="UnnecessaryContinueJS" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="UnnecessaryLabelJS" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="UnnecessaryLabelOnBreakStatementJS" enabled="false" level="WARNING" enabled_by_default="false" />
@@ -92,9 +89,6 @@
     </inspection_tool>
     <inspection_tool class="UnnecessaryReturnJS" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="UnreachableCodeJS" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="UnterminatedStatementJS" enabled="false" level="WARNING" enabled_by_default="false">
-      <option name="ignoreSemicolonAtEndOfBlock" value="true" />
-    </inspection_tool>
     <inspection_tool class="WithStatementJS" enabled="false" level="WARNING" enabled_by_default="false" />
   </profile>
 </component>

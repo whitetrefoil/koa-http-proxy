@@ -1,0 +1,16 @@
+root: true
+
+extends:
+  - "@whitetrefoil/eslint-config/with-type/node"
+
+overrides:
+  - files:
+      - "scripts/*.js"
+
+    env:
+      node: true
+
+    rules:
+      no-console: 0
+      no-process-exit: 0
+      node/no-process-exit: 0

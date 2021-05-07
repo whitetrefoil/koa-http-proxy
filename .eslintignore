@@ -1,0 +1,5 @@
+lib/
+node_modules/
+src/vendor/
+test_results/
+~playground/
